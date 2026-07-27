@@ -54,6 +54,13 @@ def test_detects_breaking_change(repo: Path) -> None:
 
 
 def test_full_changelog_includes_all_tags(repo: Path) -> None:
+    debug = subprocess.run(["git", "tag", "--list"], cwd=repo, capture_output=True, text=True)
+    print("DEBUG tag --list stdout:", repr(debug.stdout))
+    print("DEBUG tag --list stderr:", repr(debug.stderr))
+    print("DEBUG tag --list returncode:", debug.returncode)
+    debug2 = subprocess.run(["git", "log", "--oneline", "--all", "--decorate"], cwd=repo, capture_output=True, text=True)
+    print("DEBUG log:", debug2.stdout)
+
     tags = list_tags_chronological(repo)
     assert len(tags) == 1
 
