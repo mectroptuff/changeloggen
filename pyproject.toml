@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "changeloggen"
+version = "0.1.0"
+description = "Generate a clean CHANGELOG.md from your git history, grouped by Conventional Commit type. No config, no API tokens."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "changeloggen contributors" }]
+keywords = ["changelog", "cli", "git", "conventional-commits", "release", "developer-tools"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Version Control :: Git",
+]
+
+[project.urls]
+Homepage = "https://github.com/mectroptuff/changeloggen"
+Issues = "https://github.com/mectroptuff/changeloggen/issues"
+
+[project.scripts]
+changeloggen = "changeloggen.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["changeloggen*"]
