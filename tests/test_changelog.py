@@ -22,6 +22,12 @@ def test_parse_git_date_handles_non_utc_offset() -> None:
     assert date.hour == 15 and date.minute == 36
 
 
+def test_parse_git_date_handles_z_suffix() -> None:
+    date = parse_git_date("2026-07-27T15:36:20Z")
+    assert date is not None
+    assert date.utcoffset() == timezone.utc.utcoffset(None)
+
+
 def test_parse_git_date_rejects_garbage() -> None:
     assert parse_git_date("not a date") is None
 
