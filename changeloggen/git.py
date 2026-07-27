@@ -2,13 +2,41 @@
 
 from __future__ import annotations
 
+import re
 import subprocess
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 _FIELD_SEP = "\x1f"
 _RECORD_SEP = "\x1e"
+
+# `git`'s `%aI`/`%(creatordate:iso-strict)` always produce this exact shape
+# (e.g. "2026-07-27T15:36:20+00:00"). We parse it manually instead of relying
+# on `datetime.fromisoformat`, whose parsing rules differ meaningfully
+# between Python 3.9/3.10 and 3.11+.
+_GIT_ISO_DATE = re.compile(
+    r"^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})T"
+    r"(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})"
+    r"(?P<offset_sign>[+-])(?P<offset_hour>\d{2}):(?P<offset_minute>\d{2})$"
+)
+
+
+def parse_git_date(value: str) -> datetime | None:
+    match = _GIT_ISO_DATE.match(value.strip())
+    if not match:
+        return None
+
+    parts = match.groupdict()
+    offset_minutes = int(parts["offset_hour"]) * 60 + int(parts["offset_minute"])
+    if parts["offset_sign"] == "-":
+        offset_minutes = -offset_minutes
+
+    return datetime(
+        int(parts["year"]), int(parts["month"]), int(parts["day"]),
+        int(parts["hour"]), int(parts["minute"]), int(parts["second"]),
+        tzinfo=timezone(timedelta(minutes=offset_minutes)),
+    )
 
 
 @dataclass
@@ -52,9 +80,8 @@ def list_tags_chronological(root: Path) -> list[Tag]:
         if not name:
             continue
         date_output = _run(root, ["log", "-1", "--format=%aI", name]).strip()
-        try:
-            date = datetime.fromisoformat(date_output)
-        except ValueError:
+        date = parse_git_date(date_output)
+        if date is None:
             continue
         tags.append(Tag(name=name, date=date))
 
@@ -81,10 +108,7 @@ def get_commits(root: Path, rev_range: str | None) -> list[Commit]:
         if len(parts) < 5:
             continue
         commit_hash, subject, body, author, date_str = parts[:5]
-        try:
-            date = datetime.fromisoformat(date_str)
-        except ValueError:
-            date = datetime.now(timezone.utc)
+        date = parse_git_date(date_str) or datetime.now(timezone.utc)
         commits.append(Commit(hash=commit_hash, subject=subject, body=body, author=author, date=date))
 
     return commits

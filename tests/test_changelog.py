@@ -1,18 +1,33 @@
 import subprocess
+from datetime import timezone
 from pathlib import Path
 
 import pytest
 
 from changeloggen.generator import render_full_changelog
-from changeloggen.git import get_commits, list_tags_chronological
+from changeloggen.git import get_commits, list_tags_chronological, parse_git_date
 from changeloggen.parser import parse_commit
 
 
+def test_parse_git_date_handles_utc_offset() -> None:
+    date = parse_git_date("2026-07-27T15:36:20+00:00")
+    assert date is not None
+    assert date.utcoffset() == timezone.utc.utcoffset(None)
+    assert (date.year, date.month, date.day) == (2026, 7, 27)
+
+
+def test_parse_git_date_handles_non_utc_offset() -> None:
+    date = parse_git_date("2026-07-27T15:36:20+02:30")
+    assert date is not None
+    assert date.hour == 15 and date.minute == 36
+
+
+def test_parse_git_date_rejects_garbage() -> None:
+    assert parse_git_date("not a date") is None
+
+
 def _run(cmd: list[str], cwd: Path) -> None:
-    result = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
-    print(f"DEBUG $ {' '.join(cmd)} -> rc={result.returncode} out={result.stdout!r} err={result.stderr!r}")
-    if result.returncode != 0:
-        raise subprocess.CalledProcessError(result.returncode, cmd, result.stdout, result.stderr)
+    subprocess.run(cmd, cwd=cwd, check=True, capture_output=True)
 
 
 @pytest.fixture
@@ -57,13 +72,6 @@ def test_detects_breaking_change(repo: Path) -> None:
 
 
 def test_full_changelog_includes_all_tags(repo: Path) -> None:
-    debug = subprocess.run(["git", "tag", "--list"], cwd=repo, capture_output=True, text=True)
-    print("DEBUG tag --list stdout:", repr(debug.stdout))
-    print("DEBUG tag --list stderr:", repr(debug.stderr))
-    print("DEBUG tag --list returncode:", debug.returncode)
-    debug2 = subprocess.run(["git", "log", "--oneline", "--all", "--decorate"], cwd=repo, capture_output=True, text=True)
-    print("DEBUG log:", debug2.stdout)
-
     tags = list_tags_chronological(repo)
     assert len(tags) == 1
 
