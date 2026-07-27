@@ -9,7 +9,10 @@ from changeloggen.parser import parse_commit
 
 
 def _run(cmd: list[str], cwd: Path) -> None:
-    subprocess.run(cmd, cwd=cwd, check=True, capture_output=True)
+    result = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
+    print(f"DEBUG $ {' '.join(cmd)} -> rc={result.returncode} out={result.stdout!r} err={result.stderr!r}")
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(result.returncode, cmd, result.stdout, result.stderr)
 
 
 @pytest.fixture
