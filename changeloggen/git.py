@@ -39,17 +39,26 @@ def _run(root: Path, args: list[str]) -> str:
 
 
 def list_tags_chronological(root: Path) -> list[Tag]:
-    output = _run(root, ["tag", "--sort=creatordate", "--format=%(refname:short)%09%(creatordate:iso-strict)"])
+    """List tags in chronological order.
+
+    Uses each tag's target commit date (via `git log`) rather than
+    `%(creatordate)` from `for-each-ref`, because lightweight tags don't
+    always populate that field consistently across git versions/platforms.
+    """
+    names_output = _run(root, ["tag", "--list"])
     tags: list[Tag] = []
-    for line in output.splitlines():
-        if not line.strip():
+    for name in names_output.splitlines():
+        name = name.strip()
+        if not name:
             continue
-        name, _, date_str = line.partition("\t")
+        date_output = _run(root, ["log", "-1", "--format=%aI", name]).strip()
         try:
-            date = datetime.fromisoformat(date_str)
+            date = datetime.fromisoformat(date_output)
         except ValueError:
             continue
         tags.append(Tag(name=name, date=date))
+
+    tags.sort(key=lambda tag: tag.date)
     return tags
 
 
