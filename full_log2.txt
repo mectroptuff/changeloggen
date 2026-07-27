@@ -1,0 +1,124 @@
+test (ubuntu-latest, 3.13)	Run tests	´╗┐2026-07-27T15:39:57.2019206Z ##[group]Run pytest -v
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2019554Z ^[[36;1mpytest -v^[[0m
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2067423Z shell: /usr/bin/bash -e {0}
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2067745Z env:
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2068077Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.14/x64
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2068661Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.14/x64/lib/pkgconfig
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2069225Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.14/x64
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2069731Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.14/x64
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2070246Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.14/x64
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2070755Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.14/x64/lib
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.2071196Z ##[endgroup]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4753319Z ============================= test session starts ==============================
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4754708Z platform linux -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.13.14/x64/bin/python
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4756395Z cachedir: .pytest_cache
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4757394Z rootdir: /home/runner/work/changeloggen/changeloggen
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4758351Z configfile: pyproject.toml
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4973855Z collecting ... collected 6 items
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4974243Z 
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4983802Z tests/test_changelog.py::test_parse_git_date_handles_utc_offset PASSED   [ 16%]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4991582Z tests/test_changelog.py::test_parse_git_date_handles_non_utc_offset PASSED [ 33%]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.4998754Z tests/test_changelog.py::test_parse_git_date_rejects_garbage PASSED      [ 50%]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.5385289Z tests/test_changelog.py::test_parses_conventional_types PASSED           [ 66%]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.5746784Z tests/test_changelog.py::test_detects_breaking_change PASSED             [ 83%]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6425865Z tests/test_changelog.py::test_full_changelog_includes_all_tags FAILED    [100%]
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6426500Z 
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6426695Z =================================== FAILURES ===================================
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6427322Z ____________________ test_full_changelog_includes_all_tags _____________________
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6427712Z 
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6428035Z repo = PosixPath('/tmp/pytest-of-runner/pytest-0/test_full_changelog_includes_a0')
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6428488Z 
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6428868Z     def test_full_changelog_includes_all_tags(repo: Path) -> None:
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6429417Z         tags = list_tags_chronological(repo)
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6429824Z >       assert len(tags) == 1
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6430156Z E       assert 0 == 1
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6430455Z E        +  where 0 = len([])
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6430960Z 
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6431115Z tests/test_changelog.py:76: AssertionError
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6431605Z =========================== short test summary info ============================
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6432337Z FAILED tests/test_changelog.py::test_full_changelog_includes_all_tags - assert 0 == 1
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6432971Z  +  where 0 = len([])
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6433368Z ========================= 1 failed, 5 passed in 0.16s ==========================
+test (ubuntu-latest, 3.13)	Run tests	2026-07-27T15:39:57.6669043Z ##[error]Process completed with exit code 1.
+test (macos-latest, 3.11)	Run tests	´╗┐2026-07-27T15:39:57.3627210Z ##[group]Run pytest -v
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3627500Z ^[[36;1mpytest -v^[[0m
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3660370Z shell: /bin/bash -e {0}
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3660560Z env:
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3660790Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3661190Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3661590Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3661950Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3662300Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.3662560Z ##[endgroup]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5145380Z ============================= test session starts ==============================
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5146200Z platform darwin -- Python 3.11.9, pytest-9.1.1, pluggy-1.6.0 -- /Library/Frameworks/Python.framework/Versions/3.11/bin/python
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5146660Z cachedir: .pytest_cache
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5146980Z rootdir: /Users/runner/work/changeloggen/changeloggen
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5147270Z configfile: pyproject.toml
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5254200Z collecting ... collected 6 items
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5254760Z 
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5258300Z tests/test_changelog.py::test_parse_git_date_handles_utc_offset PASSED   [ 16%]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5264940Z tests/test_changelog.py::test_parse_git_date_handles_non_utc_offset PASSED [ 33%]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.5269060Z tests/test_changelog.py::test_parse_git_date_rejects_garbage PASSED      [ 50%]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.6550740Z tests/test_changelog.py::test_parses_conventional_types PASSED           [ 66%]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.7947520Z tests/test_changelog.py::test_detects_breaking_change PASSED             [ 83%]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9361760Z tests/test_changelog.py::test_full_changelog_includes_all_tags FAILED    [100%]
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9362160Z 
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9362280Z =================================== FAILURES ===================================
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9362660Z ____________________ test_full_changelog_includes_all_tags _____________________
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9362900Z 
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9363270Z repo = PosixPath('/private/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/pytest-of-runner/pytest-0/test_full_changelog_includes_a0')
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9364010Z 
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9364180Z     def test_full_changelog_includes_all_tags(repo: Path) -> None:
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9364490Z         tags = list_tags_chronological(repo)
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9364720Z >       assert len(tags) == 1
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9364930Z E       assert 0 == 1
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9365100Z E        +  where 0 = len([])
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9365230Z 
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9365320Z tests/test_changelog.py:76: AssertionError
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9365600Z =========================== short test summary info ============================
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9366020Z FAILED tests/test_changelog.py::test_full_changelog_includes_all_tags - assert 0 == 1
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9366370Z  +  where 0 = len([])
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9366600Z ========================= 1 failed, 5 passed in 0.42s ==========================
+test (macos-latest, 3.11)	Run tests	2026-07-27T15:39:57.9475700Z ##[error]Process completed with exit code 1.
+test (macos-latest, 3.13)	Run tests	´╗┐2026-07-27T15:39:58.7411890Z ##[group]Run pytest -v
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7412130Z ^[[36;1mpytest -v^[[0m
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7446870Z shell: /bin/bash -e {0}
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7447080Z env:
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7447330Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.13.14/arm64
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7447810Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.13.14/arm64/lib/pkgconfig
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7448270Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.13.14/arm64
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7448630Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.13.14/arm64
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7449010Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.13.14/arm64
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.7449270Z ##[endgroup]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9397920Z ============================= test session starts ==============================
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9398820Z platform darwin -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0 -- /Library/Frameworks/Python.framework/Versions/3.13/bin/python
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9399360Z cachedir: .pytest_cache
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9399760Z rootdir: /Users/runner/work/changeloggen/changeloggen
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9400030Z configfile: pyproject.toml
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9526370Z collecting ... collected 6 items
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9526590Z 
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9531810Z tests/test_changelog.py::test_parse_git_date_handles_utc_offset PASSED   [ 16%]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9535110Z tests/test_changelog.py::test_parse_git_date_handles_non_utc_offset PASSED [ 33%]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:58.9539630Z tests/test_changelog.py::test_parse_git_date_rejects_garbage PASSED      [ 50%]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.1088760Z tests/test_changelog.py::test_parses_conventional_types PASSED           [ 66%]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.2812410Z tests/test_changelog.py::test_detects_breaking_change PASSED             [ 83%]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5091680Z tests/test_changelog.py::test_full_changelog_includes_all_tags FAILED    [100%]
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5092060Z 
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5092290Z =================================== FAILURES ===================================
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5092770Z ____________________ test_full_changelog_includes_all_tags _____________________
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5093060Z 
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5093480Z repo = PosixPath('/private/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/pytest-of-runner/pytest-0/test_full_changelog_includes_a0')
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5094440Z 
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5094680Z     def test_full_changelog_includes_all_tags(repo: Path) -> None:
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5095050Z         tags = list_tags_chronological(repo)
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5095370Z >       assert len(tags) == 1
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5095690Z E       assert 0 == 1
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5095910Z E        +  where 0 = len([])
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5096080Z 
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5096230Z tests/test_changelog.py:76: AssertionError
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5096550Z =========================== short test summary info ============================
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5097010Z FAILED tests/test_changelog.py::test_full_changelog_includes_all_tags - assert 0 == 1
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5097390Z  +  where 0 = len([])
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5097680Z ========================= 1 failed, 5 passed in 0.56s ==========================
+test (macos-latest, 3.13)	Run tests	2026-07-27T15:39:59.5268590Z ##[error]Process completed with exit code 1.

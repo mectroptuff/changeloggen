@@ -74,13 +74,16 @@ def list_tags_chronological(root: Path) -> list[Tag]:
     always populate that field consistently across git versions/platforms.
     """
     names_output = _run(root, ["tag", "--list"])
+    print(f"DBG names_output={names_output!r}")
     tags: list[Tag] = []
     for name in names_output.splitlines():
         name = name.strip()
         if not name:
             continue
         date_output = _run(root, ["log", "-1", "--format=%aI", name]).strip()
+        print(f"DBG name={name!r} date_output={date_output!r}")
         date = parse_git_date(date_output)
+        print(f"DBG parsed_date={date!r}")
         if date is None:
             continue
         tags.append(Tag(name=name, date=date))
